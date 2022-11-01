@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+             x:Class="Runly.Pages.TabPage"
+            xmlns:local="clr-namespace:Runly.Pages;assembly=Runly"
+            NavigationPage.HasNavigationBar="false"
+            BarBackgroundColor="LightGray"
+            SelectedTabColor="Black"
+            UnselectedTabColor="Gray" >
+    <local:StepCounter Title="Kroki" Icon="icon_steps.png"/>
+    <local:Training Title="Trening" Icon="icon_run.png"/>
+    <local:History Title="Historia" Icon="icon_history.png"/>
+    <local:Settings Title="Ustawienia" Icon="icon_settings.png"/>
+</TabbedPage>
