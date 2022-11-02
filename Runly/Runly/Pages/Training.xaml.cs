@@ -15,7 +15,8 @@ using Map = Xamarin.Forms.Maps.Map;
 using Button = Xamarin.Forms.Button;
 using System.Timers;
 using Polyline = Xamarin.Forms.Maps.Polyline;
-using System.Globalization;
+using System.Threading;
+using Timer = System.Timers.Timer;
 
 namespace Runly.Pages
 {
@@ -29,13 +30,13 @@ namespace Runly.Pages
         Label distance = new Label { Text = "Dystans", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15, FontAttributes = FontAttributes.Bold, Margin = 0 };
         Label speed = new Label { Text = "Prędkość", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15, FontAttributes = FontAttributes.Bold, Margin = 0 };
         Label calories = new Label { Text = "Kalorie", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 15, FontAttributes = FontAttributes.Bold, Margin = 0 };
-        Label amountDistance = new Label { Text = "000 m", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 30, FontAttributes = FontAttributes.Bold };
-        Label amountSpeed = new Label { Text = "0 km/h", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 30, FontAttributes = FontAttributes.Bold };
+        Label amountDistance = new Label { Text = "0 m", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 30, FontAttributes = FontAttributes.Bold };
+        Label amountSpeed = new Label { Text = "0.0 km/h", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 30, FontAttributes = FontAttributes.Bold };
         Label amountCalories = new Label { Text = "0 cal", TextColor = Color.Black, HorizontalTextAlignment = TextAlignment.Center, FontSize = 30, FontAttributes = FontAttributes.Bold };
 
         Button btnStart = new Button { Text = "Start", IsVisible = true, WidthRequest = 50, HeightRequest = 50, CornerRadius = 5, BorderWidth = 2, BorderColor = Color.Gray, Margin = 5 };
         Button btnStop = new Button { Text = "Stop", IsVisible = false, WidthRequest = 50, HeightRequest = 50, CornerRadius = 5, BorderWidth = 2, BorderColor = Color.Gray, Margin = 5 };
-        Button btnRestart = new Button { Text = "Restart", IsVisible = false, WidthRequest = 50, HeightRequest = 50, CornerRadius = 5, BorderWidth = 2, BorderColor = Color.Gray, Margin = 5 };
+        Button btnEnd = new Button { Text = "Koniec", IsVisible = false, WidthRequest = 50, HeightRequest = 50, CornerRadius = 5, BorderWidth = 2, BorderColor = Color.Gray, Margin = 5 };
         Button btnResume = new Button { Text = "Wznów", IsVisible = false, WidthRequest = 50, HeightRequest = 50, CornerRadius = 5, BorderWidth = 2, BorderColor = Color.Gray, Margin = 5 };
 
 
@@ -48,7 +49,10 @@ namespace Runly.Pages
 
         List<PositionList> positionsList = new List<PositionList>();
         double way = 0;
+        double tempo = 0;
+        double caloriesBurned = 0;
 
+        double weight = 70;
 
 
         Grid dataGrid = new Grid
@@ -96,7 +100,7 @@ namespace Runly.Pages
             btnStart.Clicked += StartTraining;
             btnStop.Clicked += StopTraining;
             btnResume.Clicked += StartTraining;
-            btnRestart.Clicked += RestartTraining;
+            btnEnd.Clicked += EndTraining;
 
             dataGrid.Children.Add(distance, 0, 0);
             dataGrid.Children.Add(speed, 1, 0);
@@ -112,7 +116,7 @@ namespace Runly.Pages
             btnGrid.Children.Add(btnStart);
             btnGrid.Children.Add(btnStop);
             btnGrid.Children.Add(btnResume, 0, 0);
-            btnGrid.Children.Add(btnRestart, 1, 0);
+            btnGrid.Children.Add(btnEnd, 1, 0);
 
 
             Content = new StackLayout
@@ -127,11 +131,8 @@ namespace Runly.Pages
                 }
             };
 
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-            {
-                GetLocation();
-                return true;
-            });
+            GetLocation();
+
         }
 
         private async void GetLocation()
@@ -148,7 +149,6 @@ namespace Runly.Pages
                 }
                 else
                 {
-                    //Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
                     map.Pins.Remove(currentLocation);
                     position = new Position(location.Latitude, location.Longitude);
                     currentLocation = new Pin
@@ -158,28 +158,29 @@ namespace Runly.Pages
                         Position = position
                     };
                     map.Pins.Add(currentLocation);
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(0.2)));
+                    map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(0.5)));
                     
                     if (isTraining) {
-                        positionsList.Add(new PositionList { Latitude = location.Latitude, Longitude = location.Longitude });
+                        positionsList.Add(new PositionList { Latitude = location.Latitude, Longitude = location.Longitude, TimeLasted = (hours * 3600 + mins * 60 + secs) });
                         UpdateInfo();
                     }     
                 }
             }
 
+            GetLocation();
         }
 
         private void StartTraining(object sender, EventArgs e)
         {
+            btnStart.IsVisible = false;
+            btnResume.IsVisible = false;
+            btnEnd.IsVisible = false;
+            btnStop.IsVisible = true;
+            isTraining = true;
             timer = new Timer();
             timer.Interval = 1000;
             timer.Elapsed += Timer_Elapsed;
-            timer.Start();
-            btnStart.IsVisible = false;
-            btnResume.IsVisible = false;
-            btnRestart.IsVisible = false;  
-            btnStop.IsVisible = true;
-            isTraining = true;
+            timer.Start(); 
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -189,7 +190,6 @@ namespace Runly.Pages
             {
                 mins++;
                 secs = 0;
-
             }
             if (mins == 59)
             {
@@ -198,7 +198,7 @@ namespace Runly.Pages
             }
             Device.BeginInvokeOnMainThread(() =>
             {
-                txtTimer.Text = string.Format("{0:00}:{1:00}:{2:00}", hours, mins, secs);
+                txtTimer.Text = string.Format("{0:00}:{1:00}:{2:00}", hours, mins, secs);  
             });
         }
 
@@ -206,21 +206,25 @@ namespace Runly.Pages
         {
             timer.Stop();
             timer = null;
-            btnRestart.IsVisible = true;
+            btnEnd.IsVisible = true;
             btnResume.IsVisible = true;
             btnStop.IsVisible = false;
             isTraining = false;
         }
 
-        private void RestartTraining(object sender, EventArgs e)
+        private void EndTraining(object sender, EventArgs e)
         {
             btnResume.IsVisible = false;
-            btnRestart.IsVisible = false;
+            btnEnd.IsVisible = false;
             btnStop.IsVisible = false;
             btnStart.IsVisible = true;
             way = 0;
+            tempo = 0;
+            caloriesBurned = 0;
             txtTimer.Text = "00:00:00";
-            amountDistance.Text = "000 m";
+            amountDistance.Text = "0 m";
+            amountCalories.Text = "0 cal";
+            amountSpeed.Text = "0.0 km/h";
             hours = 0;
             mins = 0;
             secs = 0;
@@ -232,22 +236,35 @@ namespace Runly.Pages
             Polyline polyline = new Polyline();
             polyline.StrokeColor = Color.FromHex("#1BA1E2");
             polyline.StrokeWidth = 20;
-            foreach (var pos in positionsList) { 
-                polyline.Geopath.Add(new Position(pos.Latitude, pos.Longitude));
-            }
-            map.MapElements.Add(polyline);
             int length = positionsList.Count - 1;
-            if (length > 1) { 
-                way += Math.Sqrt(((positionsList[length].Latitude - positionsList[length - 1].Latitude) * (positionsList[length].Latitude - positionsList[length - 1].Latitude)) + ((Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)) * (Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)))) * (40075.704 / 360);
+            double tmpWay;
+            if (length > 1) {
+                polyline.Geopath.Add(new Position(positionsList[length - 1].Latitude, positionsList[length - 1].Longitude));
+                polyline.Geopath.Add(new Position(positionsList[length].Latitude, positionsList[length].Longitude));
+                map.MapElements.Add(polyline);
+                tmpWay = Math.Sqrt(((positionsList[length].Latitude - positionsList[length - 1].Latitude) * (positionsList[length].Latitude - positionsList[length - 1].Latitude)) + ((Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)) * (Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)))) * (40075.704 / 360);
+                way = Math.Round((way + tmpWay), 3);
+                tempo = (tmpWay / (positionsList[length].TimeLasted - positionsList[length - 1].TimeLasted)) * 3600;
             }
+            tempo = Math.Round(tempo, 1);
+            caloriesBurned += 8 * weight * tempo * 1.62 / 200;
+            caloriesBurned = Math.Round(caloriesBurned, 0);
+
             if (way < 1)
-                amountDistance.Text = string.Format("{0:000} m", way * 1000);
+                amountDistance.Text = (way * 1000).ToString() + " m";
             else if(way < 10)
                 amountDistance.Text = string.Format("{0:0.00} km", way);
             else if (way < 100)
                 amountDistance.Text = string.Format("{0:00.0} km", way);
             else
                 amountDistance.Text = string.Format("{0:000} km", way);
+
+            if (tempo < 10)
+                amountSpeed.Text = string.Format("{0:0.0} km/h", tempo);
+            else
+                amountSpeed.Text = string.Format("{0:00} km/h", tempo);
+
+            amountCalories.Text = caloriesBurned.ToString() + " cal";
         }   
     }
 }
