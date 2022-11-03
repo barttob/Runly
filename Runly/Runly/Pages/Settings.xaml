@@ -1,16 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Runly.Pages.Settings">
-    <ListView x:Name="myListView" SeparatorColor="Gray" >
-        <ListView.ItemTemplate>
-            <DataTemplate>
-            
-                <ImageCell Text="{Binding Name}"	
-                           ImageSource="{Binding Icon}"
-                           TextColor="Black" />
+             x:Class="Runly.Pages.Settings"
+             BackgroundColor="#f8feec" >
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid HorizontalOptions="Center" Margin="0, 20, 0, 0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+                <Frame BorderColor="#192126" HeightRequest="150" WidthRequest="150" CornerRadius="75" Padding="10" HorizontalOptions="Center" >
+                    <Image Source="user.png" 
+                           VerticalOptions="CenterAndExpand" 
+                           HorizontalOptions="CenterAndExpand" />
+                </Frame>
+                <Label Grid.Row="1" Text="User's Name" HorizontalOptions="Center" FontAttributes="Bold" TextColor="#192126" FontSize="20" Margin="10"/>
 
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+            </Grid>
+
+            <Grid Margin="0, 10, 0, 0">
+                <Frame VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="Waga" FontSize="25" TextColor="#192126" />
+                    </StackLayout>
+                </Frame>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

@@ -6,9 +6,9 @@
              x:Class="Runly.Pages.TabPage"
             xmlns:local="clr-namespace:Runly.Pages;assembly=Runly"
             NavigationPage.HasNavigationBar="false"
-            BarBackgroundColor="LightGray"
-            SelectedTabColor="Black"
-            UnselectedTabColor="Gray" >
+            BarBackgroundColor="#384147"
+            SelectedTabColor="#bbf247"
+            UnselectedTabColor="LightGray" >
     <local:StepCounter Title="Kroki" Icon="icon_steps.png"/>
     <local:Training Title="Trening" Icon="icon_run.png"/>
     <local:History Title="Historia" Icon="icon_history.png"/>

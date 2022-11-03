@@ -2,8 +2,85 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             x:Class="Runly.Pages.Training" >
+             x:Class="Runly.Pages.Training"
+             BackgroundColor="#f8feec">
     <ContentPage.Content>
+        <StackLayout>
+            
+            <Grid Margin="10, 20, 10, 10" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
+                <Frame Grid.ColumnSpan="3" Grid.RowSpan="4" CornerRadius="10" HasShadow="True" BackgroundColor="#fff" BorderColor="#fff" ></Frame>
+                
+                <Label Grid.ColumnSpan="3" Grid.Row="0" Text="Czas" TextColor="#192126" HorizontalTextAlignment="Center" FontSize="15" FontAttributes="Bold" Margin="0, 20, 0, 0" Padding="0"/>
+                    <Label Grid.ColumnSpan="3" Grid.Row="1" x:Name="timerValue"  Text="00:00:00" TextColor="#192126" HorizontalTextAlignment="Center" FontSize="50" FontAttributes="Bold" Margin="0, 0, 0, 20" Padding="0"/>
+
+                    <Label Grid.Column="0" Grid.Row="2" Text="Dystans" TextColor="#192126" HorizontalTextAlignment="Center" FontSize="15" FontAttributes="Bold" />
+                    <Label Grid.Column="0" Grid.Row="3" HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="0" x:Name="amountDistance" FontAttributes="Bold" TextColor="#192126" FontSize="30"/>
+                                <Span Text=" m" x:Name="distanceSize" FontAttributes="Bold" TextColor="#192126" FontSize="22"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Grid.Column="1" Grid.Row="2" Text="Prędkość" TextColor="#192126" HorizontalTextAlignment="Center" FontSize="15" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Grid.Row="3" HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="0.0" x:Name="amountSpeed" FontAttributes="Bold" TextColor="#192126" FontSize="30"/>
+                                <Span Text=" km/h" FontAttributes="Bold" TextColor="#192126" FontSize="22"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Grid.Column="2" Grid.Row="2" Text="Kalorie" TextColor="#192126" HorizontalTextAlignment="Center" FontSize="15" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Grid.Row="3" HorizontalTextAlignment="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="0" x:Name="amountCalories" FontAttributes="Bold" TextColor="#192126" FontSize="30"/>
+                                <Span Text=" cal" FontAttributes="Bold" TextColor="#192126" FontSize="22"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+            </Grid>
+            
+            <Frame CornerRadius="10" Padding="0" HeightRequest="400" Margin="10, 0, 10, 0" HasShadow="true">
+                <maps:Map x:Name="map" />
+            </Frame>
+
+            <Grid Margin="0, 0, 0, 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Frame x:Name="btnStartF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.ColumnSpan="2" IsVisible="true">
+                    <Button x:Name="btnStart" Text="Start"  CornerRadius="5" BorderWidth="0" Clicked="StartTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                </Frame>
+                <Frame x:Name="btnStopF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.ColumnSpan="2" IsVisible="false">
+                    <Button x:Name="btnStop" Text="Stop" BorderWidth="0" Clicked="StopTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                </Frame>
+                <Frame x:Name="btnResumeF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.Column="0" IsVisible="false">
+                    <Button x:Name="btnResume" Text="Wznów"  BorderWidth="0" Clicked="StartTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                </Frame>
+                <Frame x:Name="btnEndF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.Column="1" IsVisible="false">
+                    <Button x:Name="btnEnd" Text="Koniec"  BorderWidth="0" Clicked="EndTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                </Frame>
+            </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

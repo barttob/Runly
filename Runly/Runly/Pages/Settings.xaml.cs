@@ -16,15 +16,14 @@ namespace Runly.Pages
         public Settings()
         {
             InitializeComponent();
-            List<SettingsOption> myList = new List<SettingsOption>
+
+            List<SettingsList> settingsOptions = new List<SettingsList>
             {
-                new SettingsOption{Name="Opcja 1", Icon="icon_settings.png" },
-                new SettingsOption{Name="Opcja 2", Icon="icon_settings.png" },
-                new SettingsOption{Name="Opcja 3", Icon="icon_settings.png" },
-                new SettingsOption{Name="Opcja 4", Icon="icon_settings.png" },
-                new SettingsOption{Name="Opcja 5", Icon="icon_settings.png" },
+                new SettingsList{OptionName="Waga", OptionValue="70"},
+                new SettingsList{OptionName="Waga", OptionValue="70"},
+                new SettingsList{OptionName="Waga", OptionValue="70"}
             };
-            myListView.ItemsSource = myList;
+            //settingsList.ItemsSource = settingsOptions;
         }
     }
 }

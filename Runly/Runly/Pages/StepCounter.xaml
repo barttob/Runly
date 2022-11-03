@@ -1,12 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Runly.Pages.StepCounter" >
+             x:Class="Runly.Pages.StepCounter" 
+             BackgroundColor="#f8feec" >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Krokomierz"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid VerticalOptions="CenterAndExpand">
+                <Image Grid.Row="0" Source="icon_steps.png" 
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand" 
+                       HeightRequest="200" 
+                       Margin="20" />
+                <Label Grid.Row="1" 
+                       x:Name="amountSteps"
+                       Text="2137"
+                       TextColor="#192126" 
+                       FontSize="50" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" 
+                       Margin="20"   />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

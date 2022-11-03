@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Runly.Pages.History">
+             x:Class="Runly.Pages.History"
+             BackgroundColor="#f8feec" >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Historia"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <!--
+            <Grid Margin="10" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <BoxView Grid.Column="0" Grid.Row="0" HeightRequest="150" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
+                <BoxView Grid.Column="1" Grid.Row="0" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
+                <BoxView Grid.Column="0" Grid.Row="1" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
+                <BoxView Grid.Column="1" Grid.Row="1" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
+            </Grid>
+            -->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
