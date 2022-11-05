@@ -57,7 +57,7 @@
             </Grid>
             
             <Frame CornerRadius="10" Padding="0" HeightRequest="400" Margin="10, 0, 10, 0" HasShadow="true">
-                <maps:Map x:Name="map" />
+                <maps:Map x:Name="map" IsShowingUser="True" />
             </Frame>
 
             <Grid Margin="0, 0, 0, 10">

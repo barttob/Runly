@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using Timer = System.Timers.Timer;
 
 namespace Runly.Pages
 {
@@ -20,8 +22,9 @@ namespace Runly.Pages
 
         bool isTraining = false;
 
+
         Position position;
-        Pin currentLocation;
+        //Pin currentLocation;
 
         List<PositionList> positionsList = new List<PositionList>();
         double way = 0;
@@ -38,38 +41,35 @@ namespace Runly.Pages
 
         private async void GetLocation()
         {
-
             var request = new GeolocationRequest(GeolocationAccuracy.Best);
             var location = await Geolocation.GetLocationAsync(request);
 
             if (location != null)
             {
-                if (location.IsFromMockProvider)
-                {
-                    Console.WriteLine("Get location error");
-                }
-                else
-                {
-                    map.Pins.Remove(currentLocation);
-                    position = new Position(location.Latitude, location.Longitude);
-                    currentLocation = new Pin
-                    {
-                        Label = "Current Location",
-                        Type = PinType.Generic,
-                        Position = position
-                    };
-                    map.Pins.Add(currentLocation);
-                    map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(0.5)));
 
-                    if (isTraining)
-                    {
-                        positionsList.Add(new PositionList { Latitude = location.Latitude, Longitude = location.Longitude, TimeLasted = (hours * 3600 + mins * 60 + secs) });
-                        UpdateInfo();
-                    }
+                //map.Pins.Remove(currentLocation);
+                position = new Position(location.Latitude, location.Longitude);
+                /*currentLocation = new Pin
+                {
+                    Label = "Current Location",
+                    Type = PinType.Generic,
+                    Position = position
+                };
+                map.Pins.Add(currentLocation);*/
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(0.5)));
+
+                if (isTraining)
+                {
+                    positionsList.Add(new PositionList { location = location, TimeLasted = (hours * 3600 + mins * 60 + secs) });
+                    //positionsList.Add(new PositionList { Latitude = location.Latitude, Longitude = location.Longitude, TimeLasted = (hours * 3600 + mins * 60 + secs) });
+                    UpdateInfo();
                 }
+
             }
 
+            await Task.Delay(1000);
             GetLocation();
+
         }
 
         private void StartTraining(object sender, EventArgs e)
@@ -142,10 +142,13 @@ namespace Runly.Pages
             double tmpWay;
             if (length > 1)
             {
-                polyline.Geopath.Add(new Position(positionsList[length - 1].Latitude, positionsList[length - 1].Longitude));
-                polyline.Geopath.Add(new Position(positionsList[length].Latitude, positionsList[length].Longitude));
+                polyline.Geopath.Add(new Position(positionsList[length - 1].location.Latitude, positionsList[length - 1].location.Longitude));
+                polyline.Geopath.Add(new Position(positionsList[length].location.Latitude, positionsList[length].location.Longitude));
+                //polyline.Geopath.Add(new Position(positionsList[length - 1].Latitude, positionsList[length - 1].Longitude));
+                //polyline.Geopath.Add(new Position(positionsList[length].Latitude, positionsList[length].Longitude));
                 map.MapElements.Add(polyline);
-                tmpWay = Math.Sqrt(((positionsList[length].Latitude - positionsList[length - 1].Latitude) * (positionsList[length].Latitude - positionsList[length - 1].Latitude)) + ((Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)) * (Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)))) * (40075.704 / 360);
+                tmpWay = Location.CalculateDistance(positionsList[length].location, positionsList[length - 1].location, DistanceUnits.Kilometers);
+                    //Math.Sqrt(((positionsList[length].Latitude - positionsList[length - 1].Latitude) * (positionsList[length].Latitude - positionsList[length - 1].Latitude)) + ((Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)) * (Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)))) * (40075.704 / 360);
                 way = Math.Round((way + tmpWay), 3);
                 tempo = (tmpWay / (positionsList[length].TimeLasted - positionsList[length - 1].TimeLasted)) * 3600;
                 tempo = Math.Round(tempo, 1);
