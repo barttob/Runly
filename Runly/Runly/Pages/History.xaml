@@ -5,18 +5,58 @@
              BackgroundColor="#f8feec" >
     <ContentPage.Content>
         <StackLayout>
-            <!--
-            <Grid Margin="10" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <BoxView Grid.Column="0" Grid.Row="0" HeightRequest="150" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
-                <BoxView Grid.Column="1" Grid.Row="0" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
-                <BoxView Grid.Column="0" Grid.Row="1" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
-                <BoxView Grid.Column="1" Grid.Row="1" CornerRadius="10" BackgroundColor="#bbf246" Margin="10"></BoxView>
-            </Grid>
-            -->
+            <CollectionView x:Name="collectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Grid Margin="10, 20, 10, 0" Padding="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Frame Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="#bbf247" CornerRadius="10" ></Frame>
+                                <Label  Text="{Binding DateDay}"
+                                        TextColor="#192126"
+                                        FontSize="30" 
+                                        Grid.Row="0" 
+                                        Grid.Column="0"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Start"
+                                        Padding="20, 10, 0, 0" />
+                                <Label  Text="{Binding DateTime}"
+                                        TextColor="#192126"
+                                        FontSize="25" 
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="Start"
+                                        Padding="20, 0, 0, 10" />
+                                <Label  Text="{Binding Time}"
+                                        TextColor="#192126"
+                                        FontSize="30" 
+                                        Grid.Row="0" 
+                                        Grid.Column="1"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="End"
+                                        Padding="0, 10, 20, 0" />
+                                <Label  Text="{Binding Distance}"
+                                        TextColor="#192126"
+                                        FontSize="25" 
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        VerticalTextAlignment="Center"
+                                        HorizontalTextAlignment="End"
+                                        Padding="0, 0, 20, 10" />
+                                <Button Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+                            </Grid>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

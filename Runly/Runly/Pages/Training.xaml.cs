@@ -1,6 +1,8 @@
 ﻿using Runly.Models;
+using SQLite;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -31,10 +33,16 @@ namespace Runly.Pages
         double tempo = 0;
         double caloriesBurned = 0;
 
+        private readonly SQLiteAsyncConnection _database;
+
 
         public Training()
         {
             InitializeComponent();
+
+            _database = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "trainingHistory.db3"));
+            _database.CreateTableAsync<TrainingData>();
+            _database.DeleteAllAsync<TrainingData>();
 
             GetLocation();
         }
@@ -114,12 +122,21 @@ namespace Runly.Pages
             isTraining = false;
         }
 
-        private void EndTraining(object sender, EventArgs e)
+        private async void EndTraining(object sender, EventArgs e)
         {
             btnResumeF.IsVisible = false;
             btnEndF.IsVisible = false;
             btnStopF.IsVisible = false;
             btnStartF.IsVisible = true;
+
+            await SaveTrainingData(new TrainingData
+            {
+                DateDay = DateTime.Now.ToString("dd/MM/yyyy"),
+                DateTime = DateTime.Now.ToString("HH:mm"),
+                Time = hours * 3600 + mins * 60 + secs,
+                Distance = way
+            });
+
             way = 0;
             tempo = 0;
             caloriesBurned = 0;
@@ -131,6 +148,10 @@ namespace Runly.Pages
             mins = 0;
             secs = 0;
             map.MapElements.Clear();
+
+
+            
+
         }
 
         private void UpdateInfo()
@@ -183,5 +204,12 @@ namespace Runly.Pages
 
             amountCalories.Text = caloriesBurned.ToString();
         }
+
+
+        public Task<int> SaveTrainingData(TrainingData trainingData)      // Uruchomiemie zadania odczytu
+        {
+            return _database.InsertAsync(trainingData);
+        }
+
     }
 }

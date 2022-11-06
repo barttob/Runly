@@ -32,22 +32,22 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Text="Nazwa" FontSize="25" TextColor="#192126" BackgroundColor="#fff" Padding="15"/>
+                <Label Grid.Row="0" Text="Nazwa" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
                 <Label Grid.Row="0" Text="User" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
                 <Frame Grid.Row="0" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
                 <Button Grid.Row="0" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
 
-                <Label Grid.Row="1" Text="Waga" FontSize="25" TextColor="#192126" BackgroundColor="#fff" Padding="15"/>
+                <Label Grid.Row="1" Text="Waga" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
                 <Label Grid.Row="1" Text="70" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
                 <Frame Grid.Row="1" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
                 <Button Grid.Row="1" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
 
-                <Label Grid.Row="2" Text="Wiek" FontSize="25" TextColor="#192126" BackgroundColor="#fff" Padding="15"/>
+                <Label Grid.Row="2" Text="Wiek" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
                 <Label Grid.Row="2" Text="20" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
                 <Frame Grid.Row="2" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
                 <Button Grid.Row="2" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
 
-                <Label Grid.Row="3" Text="Opcja" FontSize="25" TextColor="#192126" BackgroundColor="#fff" Padding="15"/>
+                <Label Grid.Row="3" Text="Opcja" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
                 <Label Grid.Row="3" Text="Value" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
                 <Frame Grid.Row="3" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
                 <Button Grid.Row="3" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
