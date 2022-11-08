@@ -12,7 +12,10 @@ namespace Runly.Models
 
         public string DateDay { get; set; }
         public string DateTime { get; set; }
-        public int Time { get; set; }
-        public double Distance { get; set; }
+        public string Time { get; set; }
+        public string Distance { get; set; }
+        public double Calories { get; set; }
+        public double AvrSpeed { get; set; }
+        public string TrainingDatabase { get; set; }
     }
 }

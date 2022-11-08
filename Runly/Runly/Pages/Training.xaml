@@ -69,16 +69,16 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Frame x:Name="btnStartF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.ColumnSpan="2" IsVisible="true">
-                    <Button x:Name="btnStart" Text="Start"  CornerRadius="5" BorderWidth="0" Clicked="StartTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                    <Button x:Name="btnStart" Text="Start"  CornerRadius="5" BorderWidth="0" Clicked="StartTraining" BackgroundColor="#bbf247" FontAttributes="Bold" TextColor="#000" />
                 </Frame>
                 <Frame x:Name="btnStopF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.ColumnSpan="2" IsVisible="false">
-                    <Button x:Name="btnStop" Text="Stop" BorderWidth="0" Clicked="StopTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                    <Button x:Name="btnStop" Text="Stop" BorderWidth="0" Clicked="StopTraining" BackgroundColor="#bbf247" FontAttributes="Bold" TextColor="#000" />
                 </Frame>
                 <Frame x:Name="btnResumeF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.Column="0" IsVisible="false">
-                    <Button x:Name="btnResume" Text="Wznów"  BorderWidth="0" Clicked="StartTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                    <Button x:Name="btnResume" Text="Wznów"  BorderWidth="0" Clicked="ResumeTraining" BackgroundColor="#bbf247" FontAttributes="Bold" TextColor="#000" />
                 </Frame>
                 <Frame x:Name="btnEndF" CornerRadius="10" Padding="0" Margin="10" HasShadow="true" HeightRequest="50" Grid.Column="1" IsVisible="false">
-                    <Button x:Name="btnEnd" Text="Koniec"  BorderWidth="0" Clicked="EndTraining" BackgroundColor="#bbf247" FontAttributes="Bold" />
+                    <Button x:Name="btnEnd" Text="Koniec"  BorderWidth="0" Clicked="EndTraining" BackgroundColor="#bbf247" FontAttributes="Bold" TextColor="#000" />
                 </Frame>
             </Grid>
         </StackLayout>

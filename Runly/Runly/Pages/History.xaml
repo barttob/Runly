@@ -9,9 +9,9 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
-                            <Grid Margin="10, 20, 10, 0" Padding="0">
+                            <Grid Margin="10, 10, 10, 10" Padding="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="200"/>
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -51,7 +51,7 @@
                                         VerticalTextAlignment="Center"
                                         HorizontalTextAlignment="End"
                                         Padding="0, 0, 20, 10" />
-                                <Button Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+                                <Button ClassId="{Binding Id}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247" Clicked="OpenStatistics"/>
                             </Grid>
                         </StackLayout>
                     </DataTemplate>

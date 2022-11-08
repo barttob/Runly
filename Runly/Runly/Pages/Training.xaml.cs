@@ -11,6 +11,7 @@ using System.Timers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.Xaml;
 using Timer = System.Timers.Timer;
 
@@ -23,7 +24,8 @@ namespace Runly.Pages
         int hours = 0, mins = 0, secs = 0;
 
         bool isTraining = false;
-
+        DateTime startDate;
+        int trainingIndex;
 
         Position position;
         //Pin currentLocation;
@@ -32,8 +34,11 @@ namespace Runly.Pages
         double way = 0;
         double tempo = 0;
         double caloriesBurned = 0;
+        double avrSpeed = 0;
 
         private readonly SQLiteAsyncConnection _database;
+        private SQLiteAsyncConnection _databaseTraining;
+
 
 
         public Training()
@@ -42,7 +47,7 @@ namespace Runly.Pages
 
             _database = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "trainingHistory.db3"));
             _database.CreateTableAsync<TrainingData>();
-            _database.DeleteAllAsync<TrainingData>();
+            //_database.DeleteAllAsync<TrainingData>();
 
             GetLocation();
         }
@@ -68,19 +73,43 @@ namespace Runly.Pages
 
                 if (isTraining)
                 {
-                    positionsList.Add(new PositionList { location = location, TimeLasted = (hours * 3600 + mins * 60 + secs) });
+                    positionsList.Add(new PositionList { Location = location, TimeLasted = (hours * 3600 + mins * 60 + secs) });
+                    await SaveCurrentData(new CurrentData
+                    {
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude,
+                        TimeLasted = (hours * 3600 + mins * 60 + secs)
+                    });
                     //positionsList.Add(new PositionList { Latitude = location.Latitude, Longitude = location.Longitude, TimeLasted = (hours * 3600 + mins * 60 + secs) });
                     UpdateInfo();
                 }
 
             }
 
-            await Task.Delay(1000);
+            await Task.Delay(2000);
             GetLocation();
 
         }
 
         private void StartTraining(object sender, EventArgs e)
+        {
+            btnStartF.IsVisible = false;
+            btnResumeF.IsVisible = false;
+            btnEndF.IsVisible = false;
+            btnStopF.IsVisible = true;
+            isTraining = true;
+            startDate = DateTime.Now;
+
+            _databaseTraining = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "training" + startDate.ToString("dd_MM_yyyy_HH_mm_ss") + ".db3"));
+            _databaseTraining.CreateTableAsync<CurrentData>();
+
+            timer = new Timer();
+            timer.Interval = 1000;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+        }
+
+        private void ResumeTraining(object sender, EventArgs e)
         {
             btnStartF.IsVisible = false;
             btnResumeF.IsVisible = false;
@@ -131,11 +160,16 @@ namespace Runly.Pages
 
             await SaveTrainingData(new TrainingData
             {
-                DateDay = DateTime.Now.ToString("dd/MM/yyyy"),
-                DateTime = DateTime.Now.ToString("HH:mm"),
-                Time = hours * 3600 + mins * 60 + secs,
-                Distance = way
+                DateDay = startDate.ToString("dd/MM/yyyy"),
+                DateTime = startDate.ToString("HH:mm"),
+                Time = string.Format("{0:00}:{1:00}", (hours * 60 + mins), secs),
+                Distance = way.ToString() + " km",
+                Calories = caloriesBurned,
+                AvrSpeed = avrSpeed, 
+                TrainingDatabase = "training" + startDate.ToString("dd_MM_yyyy_HH_mm_ss") + ".db3"
             });
+
+            await Navigation.PushAsync(new StatisticsView(CountTrainings().Result.ToString()));
 
             way = 0;
             tempo = 0;
@@ -148,10 +182,6 @@ namespace Runly.Pages
             mins = 0;
             secs = 0;
             map.MapElements.Clear();
-
-
-            
-
         }
 
         private void UpdateInfo()
@@ -163,12 +193,12 @@ namespace Runly.Pages
             double tmpWay;
             if (length > 1)
             {
-                polyline.Geopath.Add(new Position(positionsList[length - 1].location.Latitude, positionsList[length - 1].location.Longitude));
-                polyline.Geopath.Add(new Position(positionsList[length].location.Latitude, positionsList[length].location.Longitude));
+                polyline.Geopath.Add(new Position(positionsList[length - 1].Location.Latitude, positionsList[length - 1].Location.Longitude));
+                polyline.Geopath.Add(new Position(positionsList[length].Location.Latitude, positionsList[length].Location.Longitude));
                 //polyline.Geopath.Add(new Position(positionsList[length - 1].Latitude, positionsList[length - 1].Longitude));
                 //polyline.Geopath.Add(new Position(positionsList[length].Latitude, positionsList[length].Longitude));
                 map.MapElements.Add(polyline);
-                tmpWay = Location.CalculateDistance(positionsList[length].location, positionsList[length - 1].location, DistanceUnits.Kilometers);
+                tmpWay = Location.CalculateDistance(positionsList[length].Location, positionsList[length - 1].Location, DistanceUnits.Kilometers);
                     //Math.Sqrt(((positionsList[length].Latitude - positionsList[length - 1].Latitude) * (positionsList[length].Latitude - positionsList[length - 1].Latitude)) + ((Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)) * (Math.Cos(positionsList[length - 1].Latitude * Math.PI / 180) * (positionsList[length].Longitude - positionsList[length - 1].Longitude)))) * (40075.704 / 360);
                 way = Math.Round((way + tmpWay), 3);
                 tempo = (tmpWay / (positionsList[length].TimeLasted - positionsList[length - 1].TimeLasted)) * 3600;
@@ -206,9 +236,19 @@ namespace Runly.Pages
         }
 
 
-        public Task<int> SaveTrainingData(TrainingData trainingData)      // Uruchomiemie zadania odczytu
+        public Task<int> SaveTrainingData(TrainingData trainingData)      
         {
             return _database.InsertAsync(trainingData);
+        }
+        
+        public Task<int> CountTrainings()
+        {
+            return _database.Table<TrainingData>().CountAsync();
+        }
+
+        public Task<int> SaveCurrentData(CurrentData currentPosition)
+        {
+            return _databaseTraining.InsertAsync(currentPosition);
         }
 
     }

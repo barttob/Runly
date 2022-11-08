@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.Xaml;
+using Button = Xamarin.Forms.Button;
 
 namespace Runly.Pages
 {
@@ -22,20 +24,23 @@ namespace Runly.Pages
             InitializeComponent();
 
             _database = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "trainingHistory.db3"));
-            Console.WriteLine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)));
         }
 
-        protected override async void OnAppearing() // funkcja uruchamia się po  każdej zmianie widoku
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            collectionView.ItemsSource = await GetTrainingData(); // pobranie danych do obiektu colectionView 
+            collectionView.ItemsSource = await GetTrainingData();
         }
 
-        public Task<List<TrainingData>> GetTrainingData()              // Uruchomiemie zadania odczytu
+        public Task<List<TrainingData>> GetTrainingData()
         {
             return _database.Table<TrainingData>().ToListAsync();
         }
 
-        
+        private async void OpenStatistics(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            await Navigation.PushAsync(new StatisticsView(btn.ClassId));
+        }
     }
 }
