@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.Xaml;
 using Button = Xamarin.Forms.Button;
@@ -18,6 +19,7 @@ namespace Runly.Pages
     public partial class History : ContentPage
     {
         private readonly SQLiteAsyncConnection _database;
+        List<TrainingData> results;
 
         public History()
         {
@@ -32,9 +34,11 @@ namespace Runly.Pages
             collectionView.ItemsSource = await GetTrainingData();
         }
 
-        public Task<List<TrainingData>> GetTrainingData()
+        public async Task<List<TrainingData>> GetTrainingData()
         {
-            return _database.Table<TrainingData>().ToListAsync();
+            var query = await _database.Table<TrainingData>().ToListAsync();
+            results = Enumerable.Reverse(query).ToList();
+            return results;
         }
 
         private async void OpenStatistics(object sender, EventArgs e)

@@ -5,18 +5,18 @@
              x:Class="Runly.Pages.StatisticsView"
              BackgroundColor="#f8feec" >
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout VerticalOptions="FillAndExpand">
             <AbsoluteLayout>
                 <Button Text="X" Clicked="ClosePage" TextColor="LightGray" WidthRequest="40" CornerRadius="20" HeightRequest="40" Margin="10" BackgroundColor="#fff" BorderWidth="1" BorderColor="LightGray" />
                 <Label AbsoluteLayout.LayoutBounds="70, 10" x:Name="nazwa" Text="Trening: data"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="30" TextColor="#192126"/>
 
             </AbsoluteLayout>
 
-            <Frame CornerRadius="10" Padding="0" HeightRequest="300" Margin="10, 0, 10, 0" HasShadow="true">
+            <Frame CornerRadius="10" Padding="0" VerticalOptions="Fill" HeightRequest="300" Margin="10, 0, 10, 0" HasShadow="true">
                 <maps:Map x:Name="map" />
             </Frame>
 
-            <Grid Margin="10">
+            <Grid Margin="10" VerticalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -41,6 +41,7 @@
 
                 <Label Grid.Row="5" Grid.Column="0" Text="Śr. prędkość: " TextColor="#192126" FontSize="25" Padding="5" />
                 <Label Grid.Row="5" Grid.Column="1" x:Name="avrSpeed" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Padding="5" />
+
             </Grid>
         </StackLayout>
     </ContentPage.Content>
