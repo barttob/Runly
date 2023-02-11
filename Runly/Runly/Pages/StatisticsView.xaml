@@ -12,35 +12,35 @@
 
             </AbsoluteLayout>
 
-            <Frame CornerRadius="10" Padding="0" VerticalOptions="Fill" HeightRequest="300" Margin="10, 0, 10, 0" HasShadow="true">
+            <Frame CornerRadius="10" Padding="0" VerticalOptions="Fill" HeightRequest="300" Margin="10, 0, 10, 0" HasShadow="true" >
                 <maps:Map x:Name="map" />
             </Frame>
 
-            <Grid Margin="10" VerticalOptions="FillAndExpand">
+            <Grid Margin="10" VerticalOptions="FillAndExpand" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Frame Grid.ColumnSpan="2" Grid.RowSpan="6" CornerRadius="10" ></Frame>
+                <Frame Grid.ColumnSpan="2" Grid.RowSpan="6" CornerRadius="10" HasShadow="True" ></Frame>
                 
-                <Label Grid.Row="0" Grid.Column="0" Text="Data startu: " TextColor="#192126" FontSize="25" Margin="0, 0, 0, 10" Padding="5" />
-                <Label Grid.Row="0" Grid.Column="1" x:Name="dataStartu" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Padding="5" />
+                <Label Grid.Row="0" Grid.Column="0" Text="Data startu: " TextColor="#192126" FontSize="25" Margin="10, 10, 0, 10" />
+                <Label Grid.Row="0" Grid.Column="1" x:Name="dataStartu" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Margin="0, 10, 10, 10" />
 
-                <Label Grid.Row="1" Grid.Column="0" Text="Godz. startu: " TextColor="#192126" FontSize="25" Padding="5" />
-                <Label Grid.Row="1" Grid.Column="1" x:Name="godzinaStartu" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Padding="5" />
-
-                <Label Grid.Row="2" Grid.Column="0" Text="Dystans: " TextColor="#192126" FontSize="25" Padding="5" />
-                <Label Grid.Row="2" Grid.Column="1" x:Name="dystans" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Padding="5" />
-
-                <Label Grid.Row="3" Grid.Column="0" Text="Czas: " TextColor="#192126" FontSize="25" Padding="5" />
-                <Label Grid.Row="3" Grid.Column="1" x:Name="czas" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Padding="5" />
+                <Label Grid.Row="1" Grid.Column="0" Text="Godz. startu: " TextColor="#192126" FontSize="25" Margin="10, 10, 0, 10" />
+                <Label Grid.Row="1" Grid.Column="1" x:Name="godzinaStartu" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Margin="0, 10, 10, 10" />
                 
-                <Label Grid.Row="4" Grid.Column="0" Text="Kalorie: " TextColor="#192126" FontSize="25" Padding="5" />
-                <Label Grid.Row="4" Grid.Column="1" x:Name="calories" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Padding="5" />
+                <Label Grid.Row="2" Grid.Column="0" Text="Dystans: " TextColor="#192126" FontSize="25" Margin="10, 10, 0, 10" />
+                <Label Grid.Row="2" Grid.Column="1" x:Name="dystans" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Margin="0, 10, 10, 10" />
 
-                <Label Grid.Row="5" Grid.Column="0" Text="Śr. prędkość: " TextColor="#192126" FontSize="25" Padding="5" />
-                <Label Grid.Row="5" Grid.Column="1" x:Name="avrSpeed" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Padding="5" />
+                <Label Grid.Row="3" Grid.Column="0" Text="Czas: " TextColor="#192126" FontSize="25" Margin="10, 10, 0, 10" />
+                <Label Grid.Row="3" Grid.Column="1" x:Name="czas" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Margin="0, 10, 10, 10" />
+
+                <Label Grid.Row="4" Grid.Column="0" Text="Kalorie: " TextColor="#192126" FontSize="25" Margin="10, 10, 0, 10" />
+                <Label Grid.Row="4" Grid.Column="1" x:Name="calories" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Margin="0, 10, 10, 10" />
+
+                <Label Grid.Row="5" Grid.Column="0" Text="Śr. prędkość: " TextColor="#192126" FontSize="25" Margin="10, 10, 0, 10" />
+                <Label Grid.Row="5" Grid.Column="1" x:Name="avrSpeed" TextColor="#192126" FontSize="25" HorizontalTextAlignment="End" Margin="0, 10, 10, 10" />
 
             </Grid>
         </StackLayout>

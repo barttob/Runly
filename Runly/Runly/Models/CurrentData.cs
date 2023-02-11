@@ -1,11 +1,8 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Essentials;
 
 namespace Runly.Models
 {
+    //Zestaw danych dla bazy danych lokalizacji w treningu
     public class CurrentData
     {
         [PrimaryKey, AutoIncrement]

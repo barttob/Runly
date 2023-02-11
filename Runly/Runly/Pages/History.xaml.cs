@@ -4,12 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.Xaml;
 using Button = Xamarin.Forms.Button;
 
@@ -25,15 +22,19 @@ namespace Runly.Pages
         {
             InitializeComponent();
 
+            //Inicjalizacja połączenia z bazą danych
             _database = new SQLiteAsyncConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "trainingHistory.db3"));
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            //Wypisanie danych na ekran
             collectionView.ItemsSource = await GetTrainingData();
         }
 
+        //Pobranie danych z bazy danych
         public async Task<List<TrainingData>> GetTrainingData()
         {
             var query = await _database.Table<TrainingData>().ToListAsync();
@@ -41,6 +42,7 @@ namespace Runly.Pages
             return results;
         }
 
+        //Funkcja otwieracjąca widok statystyk, podsumowania
         private async void OpenStatistics(object sender, EventArgs e)
         {
             var btn = (Button)sender;

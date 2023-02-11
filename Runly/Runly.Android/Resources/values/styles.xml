@@ -14,6 +14,19 @@
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
     <!--<item name="colorAccent">#FF4081</item>-->
-	  <item name="android:colorActivatedHighlight">#FFFFFF</item>
+	  <item 
+		  name="android:colorActivatedHighlight">#FFFFFF</item>
   </style>
+
+	<style name="MainTheme.Launcher">
+		<item name="android:windowBackground">@drawable/launch_screen</item>
+	</style>
+
+	<style name="MainTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
+		<item name="android:windowBackground">@drawable/launch_screen</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowActionBar">true</item>
+	</style>
 </resources>

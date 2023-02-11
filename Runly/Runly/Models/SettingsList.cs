@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Runly.Models
+﻿namespace Runly.Models
 {
     internal class SettingsList
     {

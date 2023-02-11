@@ -18,10 +18,10 @@
                            VerticalOptions="CenterAndExpand" 
                            HorizontalOptions="CenterAndExpand" />
                 </Frame>
-                <Label Grid.Row="1" Text="User's Name" HorizontalOptions="Center" FontAttributes="Bold" TextColor="#192126" FontSize="20" Margin="10" />
+                <Label Grid.Row="1" Text="User name" HorizontalOptions="Center" FontAttributes="Bold" TextColor="#192126" FontSize="20" Margin="10" />
             </Grid>
 
-            <Grid Margin="0" Padding="0" RowSpacing="0">
+            <Grid Margin="10" Padding="0" RowSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -31,26 +31,36 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Text="Nazwa" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
-                <Label Grid.Row="0" Text="User" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
-                <Frame Grid.Row="0" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
-                <Button Grid.Row="0" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+                
+                <Frame Grid.Row="0" BackgroundColor="#bbf247" CornerRadius="10" HasShadow="True" ></Frame>
+                <Label Grid.Row="0" Text="Login" FontSize="25" TextColor="#192126" BackgroundColor="Transparent" Padding="15"/>
+                <Label Grid.Row="0" x:Name="Login" Text="User" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
+                <Button Grid.Row="0" ClassId="0" Clicked="Open_Popup" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
 
-                <Label Grid.Row="1" Text="Waga" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
-                <Label Grid.Row="1" Text="70" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
-                <Frame Grid.Row="1" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
-                <Button Grid.Row="1" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+                <Frame Grid.Row="1" BackgroundColor="#bbf247" CornerRadius="10" HasShadow="True" ></Frame>
+                <Label Grid.Row="1" Text="Hasło" x:Name="label" FontSize="25" TextColor="#192126" BackgroundColor="Transparent" Padding="15"/>
+                <Button Grid.Row="1" ClassId="1" Clicked="Open_Popup" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
 
-                <Label Grid.Row="2" Text="Wiek" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
-                <Label Grid.Row="2" Text="20" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
-                <Frame Grid.Row="2" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
-                <Button Grid.Row="2" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+                <Frame Grid.Row="2" BackgroundColor="#bbf247" CornerRadius="10" HasShadow="True" ></Frame>
+                <Label Grid.Row="2" Text="Waga" FontSize="25" TextColor="#192126" BackgroundColor="Transparent" Padding="15"/>
+                <Label Grid.Row="2" x:Name="Waga" Text="70" FontSize="20" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
+                <Button Grid.Row="2" ClassId="2" Clicked="Open_Popup_Weight" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
 
-                <Label Grid.Row="3" Text="Opcja" FontSize="25" TextColor="#192126" BackgroundColor="#bbf247" Padding="15"/>
-                <Label Grid.Row="3" Text="Value" FontSize="25" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
-                <Frame Grid.Row="3" BackgroundColor="Transparent" CornerRadius="0" HasShadow="False" BorderColor="LightGray" ></Frame>
-                <Button Grid.Row="3" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+                <Frame Grid.Row="3" BackgroundColor="#bbf247" CornerRadius="10" HasShadow="True" ></Frame>
+                <Label Grid.Row="3" Text="Wiek" FontSize="25" TextColor="#192126" BackgroundColor="Transparent" Padding="15"/>
+                <Label Grid.Row="3" x:Name="Wiek" Text="20" FontSize="20" TextColor="#384147" BackgroundColor="Transparent" Padding="15" HorizontalTextAlignment="End" Opacity="0.8" />
+                <Button Grid.Row="3" ClassId="3" Clicked="Open_Popup" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+
+                <Frame Grid.Row="4" BackgroundColor="#bbf247" CornerRadius="10" HasShadow="True" ></Frame>
+                <Label Grid.Row="4" Text="Wyczyść treningi" FontSize="25" TextColor="#192126" BackgroundColor="Transparent" Padding="15"/>
+                <Button Grid.Row="4" Clicked="Clear_Database" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+
+                <Frame Grid.Row="5" BackgroundColor="#bbf247" CornerRadius="10" HasShadow="True" ></Frame>
+                <Label Grid.Row="5" Text="Ustaw powiadomienie" FontSize="25" TextColor="#192126" BackgroundColor="Transparent" Padding="15"/>
+                <Button Grid.Row="5" Clicked="Set_Notification" Margin="0" BorderWidth="0" Opacity="0.2" BackgroundColor="#bbf247"/>
+                
             </Grid>
 
         </StackLayout>

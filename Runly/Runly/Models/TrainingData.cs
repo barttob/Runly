@@ -1,10 +1,8 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Runly.Models
 {
+    //Zestaw danych dla głównej bazy danych
     public class TrainingData
     {
         [PrimaryKey, AutoIncrement]
@@ -16,6 +14,7 @@ namespace Runly.Models
         public string Distance { get; set; }
         public double Calories { get; set; }
         public double AvrSpeed { get; set; }
+        public int Steps { get; set; }
         public string TrainingDatabase { get; set; }
     }
 }

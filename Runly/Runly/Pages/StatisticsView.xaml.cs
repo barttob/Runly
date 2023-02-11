@@ -3,14 +3,10 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
 namespace Runly.Pages
@@ -35,12 +31,9 @@ namespace Runly.Pages
         {
             base.OnAppearing();
             GetTrainingData();
-            
-            //dataStartu.Text = result[0].Da
-            //testowe.Text = GetTrainingData().ToString();
-            //collectionView.ItemsSource = await GetTrainingData();
         }
 
+        //Wypisanie danych z bazy danych na ekran
         public async Task<List<TrainingData>> GetTrainingData()
         {
             var query = _database.Table<TrainingData>().Where(p => p.Id == buttonId);

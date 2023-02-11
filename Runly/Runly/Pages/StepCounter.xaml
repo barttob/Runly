@@ -1,25 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              x:Class="Runly.Pages.StepCounter" 
              BackgroundColor="#f8feec" >
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="50">
             <Grid VerticalOptions="CenterAndExpand">
                 <Image Grid.Row="0" Source="icon_steps.png" 
                        VerticalOptions="CenterAndExpand" 
                        HorizontalOptions="CenterAndExpand" 
                        HeightRequest="200" 
-                       Margin="20" />
+                       Margin="25" />
                 <Label Grid.Row="1" 
                        x:Name="amountSteps"
-                       Text="2137"
+                       Text="0"
                        TextColor="#192126" 
-                       FontSize="50" 
+                       FontSize="30" 
                        FontAttributes="Bold"
                        HorizontalOptions="CenterAndExpand" 
-                       Margin="20"   />
+                       Margin="25"   />
+
             </Grid>
+            <Grid x:Name="trainingGrid" IsVisible="False">
+                <Label Grid.Row="0" 
+                       Text="Kroki podczas treningu"
+                       TextColor="#192126" 
+                       FontSize="25" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" 
+                       Margin="5"   />
+                <Label Grid.Row="1" 
+                       x:Name="amountTrainingSteps"
+                       Text="0"
+                       TextColor="#192126" 
+                       FontSize="25" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="CenterAndExpand" 
+                       Margin="5"   />
+            </Grid>
+            
+            <!--<Button x:Name="btn" d:Clicked="Button_Cliked" Text="Start" HeightRequest="70" />-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
